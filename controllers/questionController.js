@@ -28,6 +28,10 @@ router.post('/', (req, res) => {
         question: req.body.question,
         q_type: req.body.q_type,
         participant_type: req.body.participant_type,
+        answer1: req.body.answer1,
+        answer2: req.body.answer2,
+        answer3: req.body.answer3,
+        answer4: req.body.answer4,
     });
     quest.save((err, doc) => {
         if (!err) { res.send(doc); }
@@ -44,6 +48,10 @@ router.put('/:id', (req, res) => {
         question: req.body.question,
         q_type: req.body.q_type,
         participant_type: req.body.participant_type,
+        answer1: req.body.answer1,
+        answer2: req.body.answer2,
+        answer3: req.body.answer3,
+        answer4: req.body.answer4,
     };
     Question.findByIdAndUpdate(req.params.id, { $set: quest }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
