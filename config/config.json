@@ -1,14 +1,14 @@
 {
     "dev": {
-        "PORT": 6060,
+        "PORT": 3000,
         "MONGODB_URI": "mongodb://localhost:27017/CrudDB"
     },
     "uat": {
-        "PORT": 6060,
+        "PORT": 80,
         "MONGODB_URI": "mongodb://uat.localhost:27017/CrudDB"
     },
     "prod": {
-        "PORT": 6060,
+        "PORT": 80,
         "MONGODB_URI": "mongodb://prod.localhost:27017/CrudDB"
     }
 }
