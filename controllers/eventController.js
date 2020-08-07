@@ -22,7 +22,7 @@ module.exports.editEvent = function(req, res) {
     });
   };
 
-  module.exports.ShowEvents = function(req, res, next) {
+  module.exports.showEvents = function(req, res, next) {
     var query = {}
      var perPage = 200
      var page = req.params.page || 1
@@ -31,7 +31,7 @@ module.exports.editEvent = function(req, res) {
      Event.find({},{},query,function(err, eventDetails) {
        if (err)
           res.send(err);
-       res.json(eventDetails);
+       res.json(eventDetails)
      });   
  };
 

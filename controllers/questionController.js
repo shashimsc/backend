@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+//mongoose.set('useFindAndModify', false);
  
 const Question = mongoose.model('Question');
 module.exports.createQuestion = (req, res, next) => {
@@ -12,7 +13,9 @@ module.exports.createQuestion = (req, res, next) => {
 };
 
 module.exports.editQuestion = function(req, res) {
-    Enrollment.findOneAndUpdate({question_id: req.params.question_id}, req.body, {new: true}, function(err, question) {
+    console.log('hello');
+    console.log(req.body.question_id);
+    Question.findOneAndUpdate({question_id: req.params.question_id}, req.body, {new: true}, function(err, question) {
       if (err)
         res.send(err);
       console.log("Updated Successfully"); 
@@ -20,7 +23,7 @@ module.exports.editQuestion = function(req, res) {
     });  
 };
 
-exports.deleteQuestion = function(req, res) {
+module.exports.deleteQuestion = function(req, res) {
     Question.remove({
       question_id: req.params.question_id
     },
@@ -31,7 +34,7 @@ exports.deleteQuestion = function(req, res) {
     });
   };
   
-  exports.getQuestionDetails=function(question_id,callback){
+ /* module.exports.getQuestionDetails=function(question_id,callback){
     Question.find({question_id:question_id}, function(err, questionDetails) {
       if (err){
           return callback(err);
@@ -39,8 +42,8 @@ exports.deleteQuestion = function(req, res) {
       return callback(questionDetails);
     });
   };
-
-  module.exports.ShowQuestions = function(req, res, next) {
+*/
+  module.exports.showQuestions = function(req, res, next) {
     var query = {}
      var perPage = 200
      var page = req.params.page || 1

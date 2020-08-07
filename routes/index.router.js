@@ -15,12 +15,12 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 
 router.post('/createEvent', ctrlEvent.createEvent);
 router.put('/editEvent/:EventId', ctrlEvent.editEvent);
-router.get('/ShowEvents',ctrlEvent.ShowEvents);
+router.get('/showEvents',ctrlEvent.showEvents);
 router.delete('/deleteEvent/:EventId',ctrlEvent.deleteEvent);
 
 router.post('/createAttendance', ctrlAttendance.createAttendance);
 router.put('/editAttendance/:AttendanceId', ctrlAttendance.editAttendance);
-router.get('/ShowAttendance',ctrlAttendance.ShowEvents);
+router.get('/showAttendance',ctrlAttendance.showAttendance);
 
 
 router.post('/createFeedback', ctrlFeedback.createFeedback);
@@ -31,9 +31,9 @@ router.get('/ShowFeedbacks',ctrlFeedback.ShowFeedbacks);
 
 router.post('/createQuestion', ctrlQuestion.createQuestion);
 router.put('/editQuestion/:question_id', ctrlQuestion.editQuestion);
-router.get('/ShowQuestion',ctrlQuestion.ShowQuestion);
+//router.get('/getQuestionDetails',ctrlQuestion.getQuestionDetails);
 router.delete('/deleteQuestion/:question_id',ctrlQuestion.deleteQuestion);
-router.get('/ShowQuestions',ctrlQuestion.ShowQuestions);
+router.get('/showQuestions',ctrlQuestion.showQuestions);
 
 //router.get('/getEventEnrollmentsRatio',ctrlEvent.getNoOfEnrollments);
 //router.get('/getEventParticipationRatio',ctrlEvent.eventParticipationRatio);

@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
-const { Attendance } = require('../models/attendance');
-
-const Event = mongoose.model('Event');
+const Attendance = mongoose.model('Attendance');
 
 module.exports.createAttendance = (req, res, next) => {
     var new_attendance = new Attendance(req.body);
-    new_attendance.save((err, event) => {
-        if (err)
-          return next(err);
+    new_attendance.save((err, attendance) => {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
          console.log('Attendance Created successful');
-         res.json(event);    
+         res.json(attendance);    
     });
 }
 
@@ -23,7 +23,7 @@ module.exports.editAttendance = function(req, res) {
     });
   };
 
-  module.exports.ShowAttendance = function(req, res, next) {
+  module.exports.showAttendance = function(req, res, next) {
     var query = {}
      var perPage = 200
      var page = req.params.page || 1
