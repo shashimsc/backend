@@ -1,4 +1,67 @@
-const express = require('express');
+const mongoose = require('mongoose');
+const Feedback = mongoose.model('Feedback');
+const Event = mongoose.model('Event');
+
+module.exports.createFeedback = (req, res, next) => {
+    var new_feedback = new Feedback(req.body);
+    new_feedback.save((err, feedback) => {
+        if (err)
+          return next(err);
+         console.log('Feedback sent successful');
+         res.json(feedback);    
+    });
+
+}
+module.exports.editFeedback = function(req, res) {
+    Feedback.findOneAndUpdate({event_id: req.params.event_id}, req.body, {new: true}, function(err, feedback) {
+      if (err)
+        res.send(err);
+      console.log("Updated Successfully"); 
+      res.json(feedback);
+    });
+  };
+
+
+module.exports.ShowFeedback = function(req, res, next) {
+   var query = {}
+    var perPage = 200
+    var page = req.params.page || 1
+    query.skip=(perPage * page) - perPage
+    query.limit=perPage
+    Feedback.find({},{},query,function(err, feedbackDetails) {
+      if (err)
+         res.send(err);
+      res.json(feedbackDetails);
+    });   
+};
+ 
+exports.deleteFeedback = function(req, res) {
+  Feedback.remove({
+    EventId: req.params.eventId,
+    EmployeeId:req.params.employeeId
+  }, function(err, event) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'Feedback deleted' });
+  });
+};
+module.exports.ShowFeedbacks = function(req, res, next) {
+   var query = {}
+    var perPage = 200
+    var page = req.params.page || 1
+    query.skip=(perPage * page) - perPage
+    query.limit=perPage
+    Feedback.find({},{},query,function(err, feedbackDetails) {
+      if (err)
+         res.send(err);
+      res.json(feedbackDetails);
+    });   
+
+};
+
+
+
+/*const express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -61,4 +124,4 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = router;*/

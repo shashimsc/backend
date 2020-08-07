@@ -1,7 +1,9 @@
+const express = require('express');
 const mongoose = require('mongoose');
 
-var Attendance = mongoose.model('Attendance', {
-    emp_id: { type: Number },
+var attendanceSchema = new mongoose.Schema({
+    attendance_id: { type: Number},
+    emp_id: { type: String },
     emp_name: { type: String },
     event_id: { type: String },
     base_location: { type: String },
@@ -9,7 +11,7 @@ var Attendance = mongoose.model('Attendance', {
     event_name: { type: String},
     event_date: { type: String},
     email_status: { type: String },
-    att_type: { type: String },
+    att_type: { type: String }
 });
 
-module.exports = { Attendance };
+mongoose.model('Attendance', attendanceSchema);

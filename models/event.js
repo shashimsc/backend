@@ -1,6 +1,7 @@
+const express = require('express');
 const mongoose = require('mongoose');
 
-var Event = mongoose.model('Event', {
+var eventSchema = new mongoose.Schema({
     event_id: { type: String },
     name: { type: String },
     poc_id: { type: String },
@@ -17,4 +18,4 @@ var Event = mongoose.model('Event', {
     total_travel_hours: { type: Number },
 });
 
-module.exports = { Event };
+mongoose.model('Event', eventSchema);

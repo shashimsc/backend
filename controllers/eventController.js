@@ -1,10 +1,54 @@
-const express = require('express');
-var router = express.Router();
-var ObjectId = require('mongoose').Types.ObjectId;
+const mongoose = require('mongoose');
 
-var { Event } = require('../models/event');
+const Event = mongoose.model('Event');
 
+module.exports.createEvent = (req, res, next) => {
+    var new_event = new Event(req.body);
+    new_event.save((err, event) => {
+        if (err)
+          return next(err);
+         console.log('Event Created successful');
+         res.json(event);    
+    });
+}
+
+module.exports.editEvent = function(req, res) {
+    console.log(req.body.event_id);
+    Event.findOneAndUpdate({event_id: req.body.event_id}, req.body, {new: true}, function(err, event) {
+      if (err)
+        res.send(err);
+      console.log("Updated Successfully"); 
+      res.json(event);
+    });
+  };
+
+  module.exports.ShowEvents = function(req, res, next) {
+    var query = {}
+     var perPage = 200
+     var page = req.params.page || 1
+     query.skip=(perPage * page) - perPage
+     query.limit=perPage
+     Event.find({},{},query,function(err, eventDetails) {
+       if (err)
+          res.send(err);
+       res.json(eventDetails);
+     });   
+ };
+
+ exports.deleteEvent = function(req, res) {
+    Event.remove({
+      event_id: req.params.event_id
+    },
+    function(err, event) {
+      if (err)
+      {
+        res.send(err);
+        }
+      res.json({ message: 'Event deleted' });
+    });
+  };
 // => localhost:3000/events/
+/*
 router.get('/', (req, res) => {
     Event.find((err, docs) => {
         if (!err) { res.send(docs); }
@@ -39,7 +83,7 @@ router.post('/', (req, res) => {
     total_volunteer_hours: req.body.total_volunteer_hours,
     total_travel_hours: req.body.total_travel_hours,
     });
-    emp.save((err, doc) => {
+    event.save((err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Event Save :' + JSON.stringify(err, undefined, 2)); }
     });
@@ -75,10 +119,10 @@ router.delete('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-    Employee.findByIdAndRemove(req.params.id, (err, doc) => {
+    Event.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Delete :' + JSON.stringify(err, undefined, 2)); }
+        else { console.log('Error in event Delete :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-module.exports = router;
+module.exports = router;*/

@@ -1,4 +1,61 @@
-const express = require('express');
+const mongoose = require('mongoose');
+ 
+const Question = mongoose.model('Question');
+module.exports.createQuestion = (req, res, next) => {
+    var new_question = new Question(req.body);
+    new_question.save((err, question) => {
+        if (err)
+          return next(err);
+         console.log('Question Created successfully');
+         res.json(question);    
+    });
+};
+
+module.exports.editQuestion = function(req, res) {
+    Enrollment.findOneAndUpdate({question_id: req.params.question_id}, req.body, {new: true}, function(err, question) {
+      if (err)
+        res.send(err);
+      console.log("Updated Successfully"); 
+      res.json(question);
+    });  
+};
+
+exports.deleteQuestion = function(req, res) {
+    Question.remove({
+      question_id: req.params.question_id
+    },
+    function(err, question) {
+      if (err)
+        res.send(err);
+      res.json({ message: 'Question deleted' });
+    });
+  };
+  
+  exports.getQuestionDetails=function(question_id,callback){
+    Question.find({question_id:question_id}, function(err, questionDetails) {
+      if (err){
+          return callback(err);
+      }
+      return callback(questionDetails);
+    });
+  };
+
+  module.exports.ShowQuestions = function(req, res, next) {
+    var query = {}
+     var perPage = 200
+     var page = req.params.page || 1
+     query.skip=(perPage * page) - perPage
+     query.limit=perPage
+     Question.find({},{},query,function(err, questionDetails) {
+       if (err)
+          res.send(err);
+       res.json(questionDetails);
+     });   
+ 
+ };
+
+
+/*
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -69,4 +126,4 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = router;*/

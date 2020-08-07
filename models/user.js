@@ -1,5 +1,7 @@
+const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 var userSchema = new mongoose.Schema({
     name: {
@@ -17,7 +19,7 @@ var userSchema = new mongoose.Schema({
         minlength : [4,'Password must be atleast 4 character long']
     },
      emp_id: {
-        type: String,
+        type: Number,
         required: 'EMP ID can\'t be empty'
     },
     
@@ -48,5 +50,19 @@ userSchema.pre('save', function (next) {
         });
     });
 });
+
+
+// Methods
+userSchema.methods.verifyPassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+};
+
+userSchema.methods.generateJwt = function () {
+    return jwt.sign({ _id: this._id},
+        process.env.JWT_SECRET,
+    {
+        expiresIn: process.env.JWT_EXP
+    });
+}
 
 mongoose.model('User', userSchema);

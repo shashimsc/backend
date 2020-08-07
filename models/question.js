@@ -1,6 +1,7 @@
+const express = require('express');
 const mongoose = require('mongoose');
 
-var Question = mongoose.model('Question', {
+var questionSchema = new mongoose.Schema({
     question_id: { type: Number },
     question: { type: String },
     q_type: { type: String },
@@ -11,4 +12,4 @@ var Question = mongoose.model('Question', {
     answer4: { type: String }
 });
 
-module.exports = { Question };
+mongoose.model('Question', questionSchema);
