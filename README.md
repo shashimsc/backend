@@ -1,4 +1,4 @@
-# CRUD
+# Backend
 
 
 installation steps
@@ -7,6 +7,6 @@ installation steps
 
 2. Install required dependency packages > npm i --save express mongoose body-parser bcryptjs nodemon cors jsonwebtoken passport passport-local lodash
    
-3. 
+3. node index.js  to start the server
    
    
